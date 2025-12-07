@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同对比分析</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .header {
+            background-color: #4a86e8;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            padding: 15px;
+            background-color: #f0f0f0;
+            border-bottom: 1px solid #ddd;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0 15px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        .content {
+            display: flex;
+            height: 70vh;
+            overflow: hidden;
+        }
+        .column {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-right: 1px solid #eee;
+        }
+        .column:last-child {
+            border-right: none;
+        }
+        .column-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        .contract-text {
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+        .added {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .deleted {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 2px 4px;
+            border-radius: 3px;
+            text-decoration: line-through;
+        }
+        .modified {
+            background-color: #cce5ff;
+            color: #004085;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        /* 同步滚动 */
+        .column {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>合同对比分析</h1>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #d4edda;"></div>
+                <span>新增内容</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #f8d7da;"></div>
+                <span>删除内容</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background-color: #cce5ff;"></div>
+                <span>修改内容</span>
+            </div>
+        </div>
+        
+        <div class="content">
+            <div class="column" id="column1">
+                <div class="column-title">合同版本 A</div>
+                <div class="contract-text">
+合同编号：2023-NCP-001
+甲方（卖方）：王五
+乙方（买方）：赵六
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：
+
+第一条 产品名称、数量、价格
+1.1 产品名称：<span class="modified">新疆苹果</span>
+1.2 数量：1500公斤
+1.3 单价：每公斤12.5元，总金额18750元。
+
+第二条 交货时间、地点
+2.1 交货时间：2023年11月15日
+2.2 交货地点：乙方指定物流集散中心
+
+第三条 运输方式及费用
+3.1 运输方式：冷链专车配送
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还
+3.3 保险：货物运输保险由甲方购买，费用包含在运费中<span class="deleted"></span>
+
+第四条 验收标准
+4.1 验收标准：GB/T 22345-2021鲜果等级标准<span class="deleted"></span>
+
+第五条 付款方式
+5.1 合同签订后，乙方支付预付款5600元
+5.2 余款13150元于交货后15个工作日内结清
+
+第六条 违约责任
+6.1 甲方延迟交货，每日赔付总金额<span class="modified">0.9%</span>
+6.2 乙方延迟付款，每日赔付滞纳金<span class="modified">0.8%</span>
+
+第七条 争议解决
+7.1 争议由签约地（杭州市）仲裁委员会裁决
+
+第八条 其他条款
+8.1 本合同含附件《质检承诺书》
+8.2 本合同经电子签章后生效，一式三份
+
+甲方（电子签章）：_________
+乙方（电子签章）：_________
+签约日期：2023年10月18日
+                </div>
+            </div>
+            
+            <div class="column" id="column2">
+                <div class="column-title">合同版本 B</div>
+                <div class="contract-text">
+合同编号：2023-NCP-001
+甲方（卖方）：王五
+乙方（买方）：赵六
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：
+
+第一条 产品名称、数量、价格
+1.1 产品名称：<span class="modified">新疆香梨</span>
+1.2 数量：1500公斤
+1.3 单价：每公斤12.5元，总金额18750元。
+
+第二条 交货时间、地点
+2.1 交货时间：2023年11月15日
+2.2 交货地点：乙方指定物流集散中心
+
+第三条 运输方式及费用
+3.1 运输方式：冷链专车配送
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还<span class="added"></span>
+
+第四条 验收标准
+4.1 验收标准：GB/T 22345-2021鲜果等级标准
+<span class="added">4.2 抽样比例：每批次随机抽检8%</span>
+
+第五条 付款方式
+5.1 合同签订后，乙方支付预付款5600元
+5.2 余款13150元于交货后15个工作日内结清
+
+第六条 违约责任
+6.1 甲方延迟交货，每日赔付总金额<span class="modified">0.8%</span>
+6.2 乙方延迟付款，每日赔付滞纳金<span class="modified">0.7%</span>
+
+第七条 争议解决
+7.1 争议由签约地（杭州市）仲裁委员会裁决
+
+第八条 其他条款
+8.1 本合同含附件《质检承诺书》
+8.2 本合同经电子签章后生效，一式三份
+
+甲方（电子签章）：_________
+乙方（电子签章）：_________
+签约日期：2023年10月18日
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 实现同步滚动
+        const column1 = document.getElementById('column1');
+        const column2 = document.getElementById('column2');
+        
+        let isSyncing = false;
+        
+        column1.addEventListener('scroll', function() {
+            if (!isSyncing) {
+                isSyncing = true;
+                column2.scrollTop = column1.scrollTop;
+                setTimeout(() => { isSyncing = false; }, 0);
+            }
+        });
+        
+        column2.addEventListener('scroll', function() {
+            if (!isSyncing) {
+                isSyncing = true;
+                column1.scrollTop = column2.scrollTop;
+                setTimeout(() => { isSyncing = false; }, 0);
+            }
+        });
+    </script>
+</body>
+</html>
