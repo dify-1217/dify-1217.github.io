@@ -1,0 +1,31 @@
+<pre>    <div class="column" id="column1">
+        <div class="sync-scroll">合同版本 A</div>
+        <div class="content"></pre><pre></div>
+    <div class="column" id="column2">
+        <div class="sync-scroll">合同版本 B</div>
+        <div class="content"></pre><pre></div>
+</div>
+
+<script>
+    // 同步滚动功能
+    const column1 = document.getElementById('column1');
+    const column2 = document.getElementById('column2');
+    
+    let isSyncing = false;
+    
+    column1.addEventListener('scroll', function() {
+        if (!isSyncing) {
+            isSyncing = true;
+            column2.scrollTop = column1.scrollTop;
+            setTimeout(() => { isSyncing = false; }, 20);
+        }
+    });
+    
+    column2.addEventListener('scroll', function() {
+        if (!isSyncing) {
+            isSyncing = true;
+            column1.scrollTop = column2.scrollTop;
+            setTimeout(() => { isSyncing = false; }, 20);
+        }
+    });
+</script></pre>
