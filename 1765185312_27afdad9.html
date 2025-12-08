@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>合同对比</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            overflow: hidden;
+        }
+        .contract-box {
+            flex: 1;
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 600px;
+            overflow-y: auto;
+            position: relative;
+        }
+        .contract-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .highlight-add {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .highlight-delete {
+            background-color: #F44336;
+            color: white;
+        }
+        .highlight-modify {
+            background-color: #FF9800;
+            color: white;
+        }
+        .highlight-same {
+            background-color: #E0E0E0;
+            color: black;
+        }
+        .legend {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #4CAF50;"></div>
+            <span>新增（合同B有，A无）</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #F44336;"></div>
+            <span>删除（合同A有，B无）</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #FF9800;"></div>
+            <span>修改（合同A和B有差异）</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #E0E0E0;"></div>
+            <span>相同（两合同相同条款）</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="contract-box" id="contractA">
+            <div class="contract-title">合同A（原合同）</div>
+            <pre id="contentA">
+        </div>
+        <div class="contract-box" id="contractB">
+            <div class="contract-title">合同B（修改后合同）</div>
+            <pre id="contentB">
+        </div>
+    </div>
+
+    <script>
+        // 合同A和B的内容
+        const contractAContent = `合同编号：2023-NCP-001\
+甲方（卖方）：王五\
+乙方（买方）：赵六\
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：\
+第一条 产品名称、数量、价格\
+1.1 产品名称：新疆苹果\
+1.2 数量：1500公斤\
+1.3 单价：每公斤12.5元，总金额18750元。\
+第二条 交货时间、地点\
+2.1 交货时间：2023年11月15日\
+2.2 交货地点：乙方指定物流集散中心\
+第三条 运输方式及费用\
+3.1 运输方式：冷链专车配送\
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还\
+3.3 保险：货物运输保险由甲方购买，费用包含在运费中\
+第四条 验收标准\
+4.1 验收标准：GB/T 22345-2021鲜果等级标准\
+第五条 付款方式\
+5.1 合同签订后，乙方支付预付款5600元\
+5.2 余款13150元于交货后15个工作日内结清\
+第六条 违约责任\
+6.1 甲方延迟交货，每日赔付总金额0.9%\
+6.2 乙方延迟付款，每日赔付滞纳金0.8%\
+第七条 争议解决\
+7.1 争议由签约地（杭州市）仲裁委员会裁决\
+第八条 其他条款\
+8.1 本合同含附件《质检承诺书》\
+8.2 本合同经电子签章后生效，一式三份\
+甲方（电子签章）：_________\
+乙方（电子签章）：_________\
+签约日期：2023年10月18日`;
+
+        const contractBContent = `合同编号：2023-NCP-001\
+甲方（卖方）：王五\
+乙方（买方）：赵六\
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：\
+第一条 产品名称、数量、价格\
+1.1 产品名称：新疆香梨\
+1.2 数量：1500公斤\
+1.3 单价：每公斤12.5元，总金额18750元。\
+第二条 交货时间、地点\
+2.1 交货时间：2023年11月15日\
+2.2 交货地点：乙方指定物流集散中心\
+第三条 运输方式及费用\
+3.1 运输方式：冷链专车配送\
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还\
+第四条 验收标准\
+4.1 验收标准：GB/T 22345-2021鲜果等级标准\
+4.2 抽样比例：每批次随机抽检8%\
+第五条 付款方式\
+5.1 合同签订后，乙方支付预付款5600元\
+5.2 余款13150元于交货后15个工作日内结清\
+第六条 迳约责任\
+6.1 甲方延迟交货，每日赔付总金额0.8%\
+6.2 乙方延迟付款，每日赔付滞纳金0.7%\
+第七条 争议解决\
+7.1 争议由签约地（杭州市）仲裁委员会裁决\
+第八条 其他条款\
+8.1 本合同含附件《质检承诺书》\
+8.2 本合同经电子签章后生效，一式三份\
+甲方（电子签章）：_________\
+乙方（电子签章）：_________\
+签约日期：2023年10月18日`;
+
+        // 生成合同内容的对比
+        function compareContracts(A, B) {
+            const linesA = A.split('
+');
+            const linesB = B.split('
+');
+            const highlightMap = {};
+            const changes = [];
+
+            // 比较每一行，标记差异
+            for (let i = 0; i < linesA.length; i++) {
+                const lineA = linesA[i].trim();
+                const lineB = i < linesB.length ? linesB[i].trim() : '';
+
+                if (lineA !== lineB) {
+                    changes.push(i);
+                    if (lineB && !lineA) {
+                        highlightMap[lineB] = 'delete'; // A有，B无 → 删除
+                    } else if (lineA && !lineB) {
+                        highlightMap[lineA] = 'add'; // B有，A无 → 添加
+                    } else if (lineA !== lineB) {
+                        highlightMap[lineA] = 'modify'; // 两者都有但不同 → 修改
+                    }
+                } else if (lineA) {
+                    highlightMap[lineA] = 'same'; // 相同
+                }
+            }
+
+            // 生成带高亮的合同内容
+            function generateHighlightedContent(content, highlight) {
+                return content.split('
+').map(line => {
+                    const trimmed = line.trim();
+                    let className = 'highlight-same';
+                    if (highlight[trimmed]) {
+                        className = `highlight-${highlight[trimmed]}`;
+                    }
+                    return `<span class="${className}">${line}</span><br>`;
+                }).join('');
+            }
+
+            return {
+                highlightedA: generateHighlightedContent(A, highlightMap),
+                highlightedB: generateHighlightedContent(B, highlightMap)
+            };
+        }
+
+        const { highlightedA, highlightedB } = compareContracts(contractAContent, contractBContent);
+
+        // 填充合同内容到div中
+        document.getElementById('contentA').innerHTML = highlightedA;
+        document.getElementById('contentB').innerHTML = highlightedB;
+    </script>
+</body>
+</html>
