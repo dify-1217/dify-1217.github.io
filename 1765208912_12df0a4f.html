@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .contract {
+    width: 50%;
+    height: 100%;
+    overflow-y: auto;
+    border-right: 1px solid #ccc;
+    padding: 10px;
+  }
+  .highlight {
+    background-color: yellow;
+  }
+  .added {
+    background-color: green;
+  }
+  .removed {
+    text-decoration: line-through;
+  }
+  .title {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .legend {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .legend span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+  .legend .yellow {
+    background-color: yellow;
+  }
+  .legend .green {
+    background-color: green;
+  }
+  .legend .red {
+    background-color: red;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="contract" id="contract1">
+    <div class="title">合同一</div>
+    <p>合同编号：2023-NCP-001<br>甲方（卖方）：王五<br>乙方（买方）：赵六<br>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：<br>第一条 产品名称、数量、价格<br>1.1 产品名称：新疆苹果<br>1.2 数量：1500公斤<br>1.3 单价：每公斤12.5元，总金额18750元。<br>第二条 交货时间、地点<br>2.1 交货时间：2023年11月15日<br>2.2 交货地点：乙方指定物流集散中心<br>第三条 运输方式及费用<br>3.1 运输方式：冷链专车配送<br>3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还<br>3.3 保险：货物运输保险由甲方购买，费用包含在运费中<br>第四条 验收标准<br>4.1 验收标准：GB/T 22345-2021鲜果等级标准<br>第五条 付款方式<br>5.1 合同签订后，乙方支付预付款5600元<br>5.2 余款13150元于交货后15个工作日内结清<br>第六条 违约责任<br>6.1 甲方延迟交货，每日赔付总金额0.9%<br>6.2 乙方延迟付款，每日赔付滞纳金0.8%<br>第七条 争议解决<br>7.1 争议由签约地（杭州市）仲裁委员会裁决<br>第八条 其他条款<br>8.1 本合同含附件《质检承诺书》<br>8.2 本合同经电子签章后生效，一式三份<br>甲方（电子签章）：_________<br>乙方（电子签章）：_________<br>签约日期：2023年10月18日</p>
+  </div>
+  <div class="contract" id="contract2">
+    <div class="title">合同二</div>
+    <p>合同编号：2023-NCP-001<br>甲方（卖方）：王五<br>乙方（买方）：赵六<br>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：<br>第一条 产品名称、数量、价格<br>1.1 产品名称：新疆香梨<br>1.2 数量：1500公斤<br>1.3 单价：每公斤12.5元，总金额18750元。<br>第二条 交货时间、地点<br>2.1 交货时间：2023年11月15日<br>2.2 交货地点：乙方指定物流集散中心<br>第三条 运输方式及费用<br>3.1 运输方式：冷链专车配送<br>3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还<br>第四条 验收标准<br>4.1 验收标准：GB/T 22345-2021鲜果等级标准<br>4.2 抽样比例：每批次随机抽检8%<br>第五条 付款方式<br>5.1 合同签订后，乙方支付预付款5600元<br>5.2 余款13150元于交货后15个工作日内结清<br>第六条 违约责任<br>6.1 甲方延迟交货，每日赔付总金额0.8%<br>6.2 乙方延迟付款，每日赔付滞纳金0.7%<br>第七条 争议解决<br>7.1 争议由签约地（杭州市）仲裁委员会裁决<br>第八条 其他条款<br>8.1 本合同含附件《质检承诺书》<br>8.2 本合同经电子签章后生效，一式三份<br>甲方（电子签章）：_________<br>乙方（电子签章）：_________<br>签约日期：2023年10月18日</p>
+  </div>
+</div>
+<div class="legend">
+  <span class="yellow"></span> 高亮显示 - 相同信息<br>
+  <span class="green"></span> 绿色背景 - 增加内容<br>
+  <span class="red"></span> 红色删除线 - 删除内容<br>
+</div>
+<script>
+  // Highlight differences
+  const contract1 = document.getElementById('contract1');
+  const contract2 = document.getElementById('contract2');
+  const highlights = ['产品名称', '违约责任', '争议解决'];
+  const additions = ['抽样比例', '违约责任比率', '滞纳金比率'];
+  const removals = [];
+
+  // Function to highlight text
+  function highlightText(element, text, highlightClass, addedOrRemoved) {
+    const regex = new RegExp(text, 'gi');
+    const textNode = element.innerText;
+    const replacedText = textNode.replace(regex, `<span class="${highlightClass}">${text}</span>`);
+    element.innerHTML = replacedText;
+  }
+
+  // Highlight common text
+  highlights.forEach(text => {
+    highlightText(contract1, text, 'highlight', 'nochange');
+    highlightText(contract2, text, 'highlight', 'nochange');
+  });
+
+  // Highlight added text
+  additions.forEach(text => {
+    highlightText(contract1, text, 'added', 'add');
+    highlightText(contract2, text, 'highlight', 'nochange');
+  });
+
+  // Highlight removed text
+  removals.forEach(text => {
+    highlightText(contract1, text, 'highlight', 'nochange');
+    highlightText(contract2, text, 'removed', 'remove');
+  });
+</script>
+</body>
+</html>
