@@ -1,0 +1,61 @@
+<div class="legend-item">
+        <span class="legend-color red"></span>
+        <span>删</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-color blue"></span>
+        <span>改</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-color yellow"></span>
+        <span>增</span>
+    </div>
+</div>
+<div class="comparison-container">
+    <div class="contract">
+        <div class="contract-title">第一份合同</div>
+        <div class="contract-content" id="contract1">
+                <div class="legend-item">
+        <span class="legend-color red"></span>
+        <span>删</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-color blue"></span>
+        <span>改</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-color yellow"></span>
+        <span>增</span>
+    </div>
+</div>
+<div class="comparison-container">
+    <div class="contract">
+        <div class="contract-title">第一份合同</div>
+        <div class="contract-content" id="contract1">
+                    </div>
+    </div>
+    <div class="contract">
+        <div class="contract-title">第二份合同</div>
+        <div class="contract-content" id="contract2">
+                    </div>
+    </div>
+    <div class="contract">
+        <div class="contract-title">第二份合同</div>
+        <div class="contract-content" id="contract2">
+                    </div>
+    </div>
+</div>
+
+<script>
+    // 同步滚动功能
+    const contract1 = document.getElementById('contract1');
+    const contract2 = document.getElementById('contract2');
+
+    contract1.addEventListener('scroll', function() {
+        contract2.scrollTop = contract1.scrollTop;
+    });
+
+    contract2.addEventListener('scroll', function() {
+        contract1.scrollTop = contract2.scrollTop;
+    });
+</script>
