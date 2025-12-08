@@ -1,0 +1,104 @@
+<pre><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合同对比</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        display: flex;
+        height: 80vh;
+        overflow-y: auto;
+        border: 1px solid #ccc;
+    }
+    .contract {
+        width: 50%;
+        padding: 20px;
+        border-right: 1px solid #ccc;
+    }
+    .highlight-add {
+        background-color: yellow;
+    }
+    .highlight-remove {
+        text-decoration: line-through;
+        color: red;
+    }
+    .highlight-change {
+        background-color: blue;
+    }
+    .legend {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .legend-item {
+        display: inline-block;
+        margin: 0 10px;
+    }
+    .legend-text {
+        display: block;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+<h1 class="contrast-title">合同对比</h1>
+<div class="legend">
+    <div class="legend-item">
+        <div style="background-color: yellow;"></div>
+        <div class="legend-text">增加内容</div>
+    </div>
+    <div class="legend-item">
+        <div style="text-decoration: line-through; color: red;"></div>
+        <div class="legend-text">删除内容</div>
+    </div>
+    <div class="legend-item">
+        <div style="background-color: blue;"></div>
+        <div class="legend-text">修改内容</div>
+    </div>
+</div>
+<div class="container">
+    <div class="contract" id="contract1">
+        <!-- Contract 1 Content -->
+        <p>合同编号：2023-NCP-001</p>
+        <p>甲方（卖方）：王五</p>
+        <p>乙方（买方）：赵六</p>
+        <p>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：</p>
+        <p>第一条 产品名称、数量、价格</p>
+        <p>1.1 产品名称：新疆苹果</p>
+        <p>1.2 数量：1500公斤</p>
+        <p>1.3 单价：每公斤12.5元，总金额18750元。</p>
+        <!-- ... -->
+        <p>签约日期：2023年10月18日</p>
+    </div>
+    <div class="contract" id="contract2">
+        <!-- Contract 2 Content -->
+        <p>合同编号：2023-NCP-001</p>
+        <p>甲方（卖方）：王五</p>
+        <p>乙方（买方）：赵六</p>
+        <p>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：</p>
+        <p>第一条 产品名称、数量、价格</p>
+        <p>1.1 产品名称：新疆香梨</p>
+        <p>1.2 数量：1500公斤</p>
+        <p>1.3 单价：每公斤12.5元，总金额18750元。</p>
+        <!-- ... -->
+        <p>签约日期：2023年10月18日</p>
+    </div>
+</div>
+<script>
+    // Sync scrolling for two containers
+    var container1 = document.getElementById('contract1');
+    var container2 = document.getElementById('contract2');
+
+    container1.addEventListener('scroll', function() {
+        container2.scrollLeft = container1.scrollLeft;
+    });
+
+    container2.addEventListener('scroll', function() {
+        container1.scrollLeft = container2.scrollLeft;
+    });
+</script>
+</body>
+</html></pre>
