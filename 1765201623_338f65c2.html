@@ -1,0 +1,54 @@
+<div class="legend-item">
+        <span style="background-color: #90EE90; display: inline-block; width: 20px; height: 20px;"></span> 增加
+    </div>
+    <div class="legend-item">
+        <span style="background-color: #FFB6C1; display: inline-block; width: 20px; height: 20px;"></span> 删除
+    </div>
+    <div class="legend-item">
+        <span style="background-color: #FFDAB9; display: inline-block; width: 20px; height: 20px;"></span> 修改
+    </div>
+</div>
+<div class="comparison-container">
+    <!-- 合同A -->
+    <div class="contract-column" id="contractA">
+        <div class="section-header">合同版本A</div>
+        合同编号：2023-NCP-001    <div class="legend-item">
+        <span style="background-color: #90EE90; display: inline-block; width: 20px; height: 20px;"></span> 增加
+    </div>
+    <div class="legend-item">
+        <span style="background-color: #FFB6C1; display: inline-block; width: 20px; height: 20px;"></span> 删除
+    </div>
+    <div class="legend-item">
+        <span style="background-color: #FFDAB9; display: inline-block; width: 20px; height: 20px;"></span> 修改
+    </div>
+</div>
+<div class="comparison-container">
+    <!-- 合同A -->
+    <div class="contract-column" id="contractA">
+        <div class="section-header">合同版本A</div>
+        合同编号：2023-NCP-001    </div>
+    
+    <!-- 合同B -->
+    <div class="contract-column" id="contractB">
+        <div class="section-header">合同版本B</div>
+        合同编号：2023-NCP-001    </div>
+    
+    <!-- 合同B -->
+    <div class="contract-column" id="contractB">
+        <div class="section-header">合同版本B</div>
+        合同编号：2023-NCP-001    </div>
+</div>
+
+<script>
+    // 实现同步滚动
+    const contractA = document.getElementById('contractA');
+    const contractB = document.getElementById('contractB');
+    
+    contractA.addEventListener('scroll', function() {
+        contractB.scrollTop = contractA.scrollTop;
+    });
+    
+    contractB.addEventListener('scroll', function() {
+        contractA.scrollTop = contractB.scrollTop;
+    });
+</script>
