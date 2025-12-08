@@ -1,0 +1,95 @@
+<div class="legend-title">差异图例说明</div>
+    <div class="legend-item">
+        <span class="color-box addition"></span>新增内容
+    </div>
+    <div class="legend-item">
+        <span class="color-box deletion"></span>删除内容
+    </div>
+    <div class="legend-item">
+        <span class="color-box modification"></span>修改内容
+    </div>
+</div>
+
+<div class="comparison-container">
+    <div id="contractA" class="contract-column synchronized">
+        <div class="contract-title">合同A</div>
+        <!-- 合同A内容将通过JavaScript动态插入 -->
+    </div>
+    <div id="contractB" class="contract-column synchronized">
+        <div class="contract-title">合同B</div>
+        <!-- 合同B内容将通过JavaScript动态插入 -->
+    </div>
+</div>
+
+<script>
+    const contractA = "合同编号：2023-NCP-001    const contractB = "合同编号：2023-NCP-001    function markDifferences(textA, textB) {
+        const linesA = textA.split('        for (let i = 0; i < maxLines; i++) {
+            const lineA = linesA[i] || '';
+            const lineB = linesB[i] || '';
+
+            if (lineA.trim() === lineB.trim()) {
+                markedA += lineA + '    function parseContract(text, isA) {
+        const lines = text.split('        for (const line of lines) {
+            if (line.trim().endsWith('：')) {
+                if (currentTitle) {
+                    html += `
+                    <div class="clause">
+                        <div class="clause-title">${currentTitle}</div>
+                        <div class="clause-content">${currentContent}</div>
+                    </div>`;
+                }
+                currentTitle = line.trim();
+                currentContent = '';
+            } else if (currentTitle) {
+                currentContent += (currentContent ? '<br>' : '') + line;
+            }
+        }
+        if (currentTitle) {
+            html += `
+            <div class="clause">
+                <div class="clause-title">${currentTitle}</div>
+                <div class="clause-content">${currentContent}</div>
+            </div>`;
+        }
+        return html;
+    }
+
+    function initComparison() {
+        const { markedA, markedB } = markDifferences(contractA, contractB);
+        const contractAHtml = parseContract(markedA, true);
+        const contractBHtml = parseContract(markedB, false);
+        
+        document.getElementById('contractA').innerHTML = '<div class="contract-title">合同A</div>' + contractAHtml;
+        document.getElementById('contractB').innerHTML = '<div class="contract-title">合同B</div>' + contractBHtml;
+    }
+
+    function setupSyncScroll() {
+        const columns = document.querySelectorAll('.synchronized');
+        let isSyncing = false;
+
+        columns.forEach(col => {
+            col.addEventListener('scroll', function() {
+                if (isSyncing) return;
+                isSyncing = true;
+                
+                const scrollTop = this.scrollTop;
+                const scrollHeight = this.scrollHeight;
+                const clientHeight = this.clientHeight;
+                
+                columns.forEach(otherCol => {
+                    if (otherCol !== this) {
+                        const ratio = scrollTop / (scrollHeight - clientHeight);
+                        otherCol.scrollTop = ratio * (otherCol.scrollHeight - otherCol.clientHeight);
+                    }
+                });
+                
+                setTimeout(() => isSyncing = false, 10);
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        initComparison();
+        setupSyncScroll();
+    });
+</script>
