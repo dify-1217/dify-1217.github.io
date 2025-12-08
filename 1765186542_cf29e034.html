@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>合同差异对比</title>
+    <style>
+        .contract-container {
+            display: flex;
+            height: 100vh;
+            overflow-y: auto;
+            scrollbar-gutter: stable both-edges;
+        }
+        .contract {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        .modified { color: yellow; }
+        .added { color: green; }
+        .deleted { color: red; }
+        .legend {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+        }
+        .legend-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="contract-container">
+        <div class="contract" id="contractA">
+合同编号：2023-NCP-001
+甲方（卖方）：王五
+乙方（买方）：赵六
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：
+第一条 产品名称、数量、价格
+1.1 <span class="modified">产品名称：新疆苹果</span>
+1.2 数量：1500公斤
+1.3 单价：每公斤12.5元，总金额18750元。
+第二条 交货时间、地点
+2.1 交货时间：2023年11月15日
+2.2 交货地点：乙方指定物流集散中心
+第三条 运输方式及费用
+3.1 运输方式：冷链专车配送
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还
+3.3 保险：货物运输保险由甲方购买，费用包含在运费中
+第四条 验收标准
+4.1 <span class="modified">验收标准：GB/T 22345-2021鲜果等级标准</span>
+第五条 付款方式
+5.1 合同签订后，乙方支付预付款5600元
+5.2 余款13150元于交货后15个工作日内结清
+第六条 违约责任
+6.1 <span class="modified">甲方延迟交货，每日赔付总金额0.9%</span>
+6.2 <span class="modified">乙方延迟付款，每日赔付滞纳金0.8%</span>
+第七条 争议解决
+7.1 争议由签约地（杭州市）仲裁委员会裁决
+第八条 其他条款
+8.1 本合同含附件《质检承诺书》
+8.2 本合同经电子签章后生效，一式三份
+甲方（电子签章）：_________
+乙方（电子签章）：_________
+签约日期：2023年10月18日
+        </div>
+        <div class="contract" id="contractB">
+合同编号：2023-NCP-001
+甲方（卖方）：王五
+乙方（买方）：赵六
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：
+第一条 产品名称、数量、价格
+1.1 <span class="modified">产品名称：新疆香梨</span>
+1.2 数量：1500公斤
+1.3 单价：每公斤12.5元，总金额18750元。
+第二条 交货时间、地点
+2.1 交货时间：2023年11月15日
+2.2 交货地点：乙方指定物流集散中心
+第三条 运输方式及费用
+3.1 运输方式：冷链专车配送
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还
+第四条 验收标准
+4.1 <span class="modified">验收标准：GB/T 22345-2021鲜果等级标准</span>
+4.2 <span class="added">抽样比例：每批次随机抽检8%</span>
+第五条 付款方式
+5.1 合同签订后，乙方支付预付款5600元
+5.2 余款13150元于交货后15个工作日内结清
+第六条 违约责任
+6.1 <span class="modified">甲方延迟交货，每日赔付总金额0.8%</span>
+6.2 <span class="modified">乙方延迟付款，每日赔付滞纳金0.7%</span>
+第七条 争议解决
+7.1 争议由签约地（杭州市）仲裁委员会裁决
+第八条 其他条款
+8.1 本合同含附件《质检承诺书》
+8.2 本合同经电子签章后生效，一式三份
+甲方（电子签章）：_________
+乙方（电子签章）：_________
+签约日期：2023年10月18日
+        </div>
+    </div>
+    <div class="legend">
+        <div class="legend-item">修改（改）: <span class="modified">改</span></div>
+        <div class="legend-item">新增（增）: <span class="added">增</span></div>
+        <div class="legend-item">删除（删）: <span class="deleted">删</span></div>
+    </div>
+</body>
+</html>
