@@ -1,0 +1,40 @@
+<div class="contract-column contract-column-left" id="contractA">
+        <!-- 合同A内容 -->
+    </div>
+    <div class="contract-column contract-column-right" id="contractB">
+        <!-- 合同B内容 -->
+    </div>
+</div>
+<div class="legend">
+    <div class="legend-item"><span class="diff-added">红色</span> 增（新增内容）</div>
+    <div class="legend-item"><span class="diff-deleted">绿色</span> 删（删除内容）</div>
+    <div class="legend-item"><span class="diff-modified">蓝色</span> 改（修改内容）</div>
+</div>
+
+<script>
+    // 合同A内容
+    const contractAContent = `    // 合同B内容
+    const contractBContent = `    // 高亮差异的函数
+    function highlightDifferences(contentA, contentB) {
+        const linesA = contentA.split('        while (i < linesA.length || i < linesB.length) {
+            let lineA = linesA[i] || '';
+            let lineB = linesB[i] || '';
+
+            // 检查改（产品名称、违约责任等）
+            if (lineA !== lineB) {
+                if (lineA.includes('新疆苹果') && lineB.includes('新疆香梨')) {
+                    // 产品名称修改
+                    resultA += `<span class="diff-modified">${lineA}</span>        return { resultA, resultB };
+    }
+
+    // 生成HTML内容
+    function generateHtml() {
+        const { resultA, resultB } = highlightDifferences(contractAContent, contractBContent);
+
+        document.getElementById('contractA').innerHTML = resultA;
+        document.getElementById('contractB').innerHTML = resultB;
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', generateHtml);
+</script>
