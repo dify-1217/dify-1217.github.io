@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>åˆåŒç‰ˆæœ¬å¯¹æ¯”</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 20px;
+        }
+        
+        .header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            margin-bottom: 0;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .legend {
+            background: white;
+            padding: 15px;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .legend h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .legend-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+        
+        .color-box {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+        
+        .added {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .deleted {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            text-decoration: line-through;
+        }
+        
+        .modified {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .comparison-container {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        
+        .contract-column {
+            flex: 1;
+            padding: 0;
+            overflow-y: auto;
+            height: 70vh;
+        }
+        
+        .contract-column:first-child {
+            border-right: 1px solid #e0e0e0;
+        }
+        
+        .contract-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        .contract-header h2 {
+            color: #2c3e50;
+            font-size: 18px;
+        }
+        
+        .contract-content {
+            padding: 20px;
+        }
+        
+        .contract-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            color: #2c3e50;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .clause {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .clause:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .clause-title {
+            font-weight: bold;
+            color: #495057;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        
+        .clause-content {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .controls {
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .sync-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        
+        .sync-btn:hover {
+            background: #2980b9;
+        }
+        
+        .sync-btn.active {
+            background: #27ae60;
+        }
+        
+        .highlight {
+            padding: 2px 4px;
+            border-radius: 3px;
+            margin: 0 1px;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-container {
+                flex-direction: column;
+            }
+            
+            .contract-column:first-child {
+                border-right: none;
+                border-bottom: 1px solid #e0e0e0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>åˆåŒç‰ˆæœ¬å¯¹æ¯”åˆ†æ</h1>
+            <p>åˆåŒA vs åˆåŒB | ä¸“ä¸šåˆåŒå®¡æŸ¥å¯¹æ¯”æŠ¥å‘Š</p>
+        </div>
+        
+        <div class="legend">
+            <h3>å›¾ä¾‹è¯´æ˜</h3>
+            <div class="legend-items">
+                <div class="legend-item">
+                    <div class="color-box added"></div>
+                    <span>æ–°å¢å†…å®¹</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box deleted"></div>
+                    <span>åˆ é™¤å†…å®¹</span>
+                </div>
+                <div class="legend-item">
+                    <div class="color-box modified"></div>
+                    <span>ä¿®æ”¹å†…å®¹</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="comparison-container">
+            <!-- åˆåŒA --> 
+            <div class="contract-column" id="contractA">
+                <div class="contract-header">
+                    <h2>ğŸ“„ åˆåŒA</h2>
+                </div>
+                <div class="contract-content">
+                    <!-- åˆåŒå†…å®¹å°†é€šè¿‡JavaScriptåŠ¨æ€ç”Ÿæˆ --> 
+                </div>
+            </div>
+            
+            <!-- åˆåŒB --> 
+            <div class="contract-column" id="contractB">
+                <div class="contract-header">
+                    <h2>ğŸ“„ åˆåŒB</h2>
+                </div>
+                <div class="contract-content">
+                    <!-- åˆåŒå†…å®¹å°†é€šè¿‡JavaScriptåŠ¨æ€ç”Ÿæˆ --> 
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="sync-btn" id="syncBtn">ğŸ”— å¯ç”¨åŒæ­¥æ»šåŠ¨</button>
+        </div>
+    </div>
+    
+    <script>
+        // ç¤ºä¾‹åˆåŒæ•°æ® - å®é™…ä½¿ç”¨æ—¶åº”æ›¿æ¢ä¸ºå®é™…åˆåŒæ•°æ® 
+        const contractData = {
+            contractA: {
+                title: "è½¯ä»¶è®¸å¯ä½¿ç”¨åˆåŒ",
+                sections: [
+                    {
+                        title: "ç¬¬ä¸€æ¡ è®¸å¯å†…å®¹",
+                        clauses: [
+                            {
+                                title: "1.1 è½¯ä»¶è®¸å¯",
+                                content: "ç”²æ–¹æˆäºˆä¹™æ–¹åœ¨æœ¬åˆåŒçº¦å®šçš„èŒƒå›´å†…ä½¿ç”¨è®¸å¯è½¯ä»¶çš„æƒåˆ©ã€‚"
+                            },
+                            {
+                                title: "1.2 ä½¿ç”¨èŒƒå›´",
+                                content: "ä¹™æ–¹å¯åœ¨å…¶ä½äºåŒ—äº¬å¸‚çš„åŠå…¬åœºæ‰€å†…ä½¿ç”¨æœ¬è½¯ä»¶ã€‚"
+                            }
+                        ]
+                    },
+                    {
+                        title: "ç¬¬äºŒæ¡ è´¹ç”¨ä¸æ”¯ä»˜",
+                        clauses: [
+                            {
+                                title: "2.1 è®¸å¯è´¹ç”¨",
+                                content: "ä¹™æ–¹åº”å‘ç”²æ–¹æ”¯ä»˜è½¯ä»¶è®¸å¯ä½¿ç”¨è´¹äººæ°‘å¸100,000å…ƒã€‚"
+                            },
+                            {
+                                title: "2.2 æ”¯ä»˜æ–¹å¼",
+                                content: "åˆåŒç­¾è®¢å7ä¸ªå·¥ä½œæ—¥å†…ä¸€æ¬¡æ€§æ”¯ä»˜å…¨éƒ¨è´¹ç”¨ã€‚"
+                            }
+                        ]
+                    },
+                    {
+                        title: "ç¬¬ä¸‰æ¡ æœåŠ¡æ”¯æŒ",
+                        clauses: [
+                            {
+                                title: "3.1 æŠ€æœ¯æ”¯æŒ",
+                                content: "ç”²æ–¹æä¾›ä¸€å¹´çš„å…è´¹æŠ€æœ¯æ”¯æŒæœåŠ¡ã€‚"
+                            },
+                            {
+                                title: "3.2 æœåŠ¡æ—¶é—´",
+                                content: "å·¥ä½œæ—¥9:00-18:00æä¾›ç”µè¯æ”¯æŒæœåŠ¡ã€‚"
+                            }
+                        ]
+                    }
+                ]
+            },
+            contractB: {
+                title: "è½¯ä»¶è®¸å¯ä½¿ç”¨åˆåŒ",
+                sections: [
+                    {
+                        title: "ç¬¬ä¸€æ¡ è®¸å¯å†…å®¹",
+                        clauses: [
+                            {
+                                title: "1.1 è½¯ä»¶è®¸å¯",
+                                content: "ç”²æ–¹æˆäºˆä¹™æ–¹åœ¨æœ¬åˆåŒçº¦å®šçš„èŒƒå›´å†…ä½¿ç”¨è®¸å¯è½¯ä»¶çš„æƒåˆ©ã€‚"
+                            },
+                            {
+                                title: "1.2 ä½¿ç”¨èŒƒå›´",
+                                content: "ä¹™æ–¹å¯åœ¨å…¶ä½äº<mark class='highlight modified'>ä¸Šæµ·å¸‚å’ŒåŒ—äº¬å¸‚</mark>çš„åŠå…¬åœºæ‰€å†…ä½¿ç”¨æœ¬è½¯ä»¶ã€‚"
+                            },
+                            {
+                                title: "1.3 æ–°å¢æ¡æ¬¾",
+                                content: "<mark class='highlight added'>ä¹™æ–¹ä¸å¾—å°†è½¯ä»¶ç”¨äºæœ¬åˆåŒçº¦å®šä¹‹å¤–çš„ä»»ä½•å•†ä¸šç”¨é€”ã€‚</mark>"
+                            }
+                        ]
+                    },
+                    {
+                        title: "ç¬¬äºŒæ¡ è´¹ç”¨ä¸æ”¯ä»˜",
+                        clauses: [
+                            {
+                                title: "2.1 è®¸å¯è´¹ç”¨",
+                                content: "ä¹™æ–¹åº”å‘ç”²æ–¹æ”¯ä»˜è½¯ä»¶è®¸å¯ä½¿ç”¨è´¹äººæ°‘å¸<mark class='highlight modified'>120,000</mark>å…ƒã€‚"
+                            },
+                            {
+                                title: "2.2 æ”¯ä»˜æ–¹å¼",
+                                content: "åˆåŒç­¾è®¢å<mark class='highlight modified'>15ä¸ª</mark>å·¥ä½œæ—¥å†…ä¸€æ¬¡æ€§æ”¯ä»˜å…¨éƒ¨è´¹ç”¨ã€‚"
+                            }
+                        ]
+                    },
+                    {
+                        title: "ç¬¬ä¸‰æ¡ æœåŠ¡æ”¯æŒ",
+                        clauses: [
+                            {
+                                title: "3.1 æŠ€æœ¯æ”¯æŒ",
+                                content: "ç”²æ–¹æä¾›<mark class='highlight modified'>ä¸¤å¹´çš„</mark>å…è´¹æŠ€æœ¯æ”¯æŒæœåŠ¡ã€‚"
+                            },
+                            {
+                                title: "3.2 æœåŠ¡æ—¶é—´",
+                                content: "<mark class='highlight deleted'>å·¥ä½œæ—¥9:00-18:00æä¾›ç”µè¯æ”¯æŒæœåŠ¡ã€‚</mark>"
+                            },
+                            {
+                                title: "3.3 å“åº”æ—¶é—´",
+                                content: "<mark class='highlight added'>ç”²æ–¹åº”åœ¨2å°æ—¶å†…å“åº”ä¹™æ–¹çš„æŠ€æœ¯æ”¯æŒè¯·æ±‚ã€‚</mark>"
+                            }
+                        ]
+                    }
+                ]
+            }
+        };
+        
+        // æ¸²æŸ“åˆåŒå†…å®¹ 
+        function renderContracts() {
+            const contractAContent = document.querySelector('#contractA .contract-content');
+            const contractBContent = document.querySelector('#contractB .contract-content');
+            
+            // æ¸²æŸ“åˆåŒA 
+            contractAContent.innerHTML = '';
+            contractData.contractA.sections.forEach(section => {
+                const sectionEl = createSectionElement(section);
+                contractAContent.appendChild(sectionEl);
+            });
+            
+            // æ¸²æŸ“åˆåŒB 
+            contractBContent.innerHTML = '';
+            contractData.contractB.sections.forEach(section => {
+                const sectionEl = createSectionElement(section);
+                contractBContent.appendChild(sectionEl);
+            });
+        }
+        
+        function createSectionElement(section) {
+            const sectionEl = document.createElement('div');
+            sectionEl.className = 'contract-section';
+            
+            const titleEl = document.createElement('div');
+            titleEl.className = 'section-title';
+            titleEl.textContent = section.title;
+            sectionEl.appendChild(titleEl);
+            
+            section.clauses.forEach(clause => {
+                const clauseEl = document.createElement('div');
+                clauseEl.className = 'clause';
+                
+                const titleEl = document.createElement('div');
+                titleEl.className = 'clause-title';
+                titleEl.textContent = clause.title;
+                clauseEl.appendChild(titleEl);
+                
+                const contentEl = document.createElement('div');
+                contentEl.className = 'clause-content';
+                contentEl.innerHTML = clause.content;
+                clauseEl.appendChild(contentEl);
+                
+                sectionEl.appendChild(clauseEl);
+            });
+            
+            return sectionEl;
+        }
+        
+        // åŒæ­¥æ»šåŠ¨åŠŸèƒ½ 
+        let isSyncEnabled = false;
+        const syncBtn = document.getElementById('syncBtn');
+        const contractA = document.getElementById('contractA');
+        const contractB = document.getElementById('contractB');
+        
+        function enableSyncScroll() {
+            contractA.addEventListener('scroll', syncScroll);
+            contractB.addEventListener('scroll', syncScroll);
+            syncBtn.classList.add('active');
+            syncBtn.textContent = 'ğŸ”— åŒæ­¥æ»šåŠ¨ä¸­';
+            isSyncEnabled = true;
+        }
+        
+        function disableSyncScroll() {
+            contractA.removeEventListener('scroll', syncScroll);
+            contractB.removeEventListener('scroll', syncScroll);
+            syncBtn.classList.remove('active');
+            syncBtn.textContent = 'ğŸ”— å¯ç”¨åŒæ­¥æ»šåŠ¨';
+            isSyncEnabled = false;
+        }
+        
+        function syncScroll(e) {
+            if (!isSyncEnabled) return;
+            
+            const source = e.target;
+            const target = source === contractA ? contractB : contractA;
+            
+            // ç§»é™¤ç›®æ ‡å…ƒç´ çš„ç›‘å¬å™¨ï¼Œé¿å…å¾ªç¯ 
+            target.removeEventListener('scroll', syncScroll);
+            
+            // è®¡ç®—æ»šåŠ¨æ¯”ä¾‹å¹¶åº”ç”¨åˆ°ç›®æ ‡å…ƒç´  
+            const scrollPercent = source.scrollTop / (source.scrollHeight - source.clientHeight);
+            target.scrollTop = scrollPercent * (target.scrollHeight - target.clientHeight);
+            
+            // é‡æ–°æ·»åŠ ç›‘å¬å™¨ 
+            setTimeout(() => {
+                target.addEventListener('scroll', syncScroll);
+            }, 100);
+        }
+        
+        // åˆå§‹åŒ– 
+        document.addEventListener('DOMContentLoaded', () => {
+            renderContracts();
+            
+            syncBtn.addEventListener('click', () => {
+                if (isSyncEnabled) {
+                    disableSyncScroll();
+                } else {
+                    enableSyncScroll();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
