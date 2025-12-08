@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同差异对比</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .contracts-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .contract {
+            flex: 1;
+            border: 1px solid #ddd;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 600px;
+        }
+        .legend {
+            margin: 20px 0;
+        }
+        .add-span {
+            color: green;
+            font-weight: bold;
+        }
+        .del-span {
+            color: red;
+            font-weight: bold;
+        }
+        .mod-span {
+            color: orange;
+            font-weight: bold;
+        }
+        p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>合同差异对比（左右同步滚动）</h2>
+    <div class="legend">
+        <span class="add-span">增（新增条款）</span> &nbsp;&nbsp;
+        <span class="del-span">删（删除条款）</span> &nbsp;&nbsp;
+        <span class="mod-span">改（修改条款）</span>
+    </div>
+    <div class="contracts-container">
+        <div class="contract" id="contractA">
+            <p>合同编号：2023-NCP-001</p>
+            <p>甲方（卖方）：王五</p>
+            <p>乙方（买方）：赵六</p>
+            <p>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：</p>
+            <p>第一条 产品名称、数量、价格</p>
+            <p>1.1 <span class="mod-span">产品名称：新疆苹果</span></p>
+            <p>1.2 数量：1500公斤</p>
+            <p>1.3 单价：每公斤12.5元，总金额18750元。</p>
+            <p>第二条 交货时间、地点</p>
+            <p>2.1 交货时间：2023年11月15日</p>
+            <p>2.2 交货地点：乙方指定物流集散中心</p>
+            <p>第三条 运输方式及费用</p>
+            <p>3.1 运输方式：冷链专车配送</p>
+            <p>3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还</p>
+            <p>3.3 <span class="del-span">保险：货物运输保险由甲方购买，费用包含在运费中</span></p>
+            <p>第四条 验收标准</p>
+            <p>4.1 验收标准：GB/T 22345-2021鲜果等级标准</p>
+            <p>第五条 付款方式</p>
+            <p>5.1 合同签订后，乙方支付预付款5600元</p>
+            <p>5.2 余款13150元于交货后15个工作日内结清</p>
+            <p>第六条 违约责任</p>
+            <p>6.1 <span class="mod-span">甲方延迟交货，每日赔付总金额0.9%</span></p>
+            <p>6.2 <span class="mod-span">乙方延迟付款，每日赔付滞纳金0.8%</span></p>
+            <p>第七条 争议解决</p>
+            <p>7.1 争议由签约地（杭州市）仲裁委员会裁决</p>
+            <p>第八条 其他条款</p>
+            <p>8.1 本合同含附件《质检承诺书》</p>
+            <p>8.2 本合同经电子签章后生效，一式三份</p>
+            <p>甲方（电子签章）：_________</p>
+            <p>乙方（电子签章）：_________</p>
+            <p>签约日期：2023年10月18日</p>
+        </div>
+        <div class="contract" id="contractB">
+            <p>合同编号：2023-NCP-001</p>
+            <p>甲方（卖方）：王五</p>
+            <p>乙方（买方）：赵六</p>
+            <p>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：</p>
+            <p>第一条 产品名称、数量、价格</p>
+            <p>1.1 <span class="mod-span">产品名称：新疆香梨</span></p>
+            <p>1.2 数量：1500公斤</p>
+            <p>1.3 单价：每公斤12.5元，总金额18750元。</p>
+            <p>第二条 交货时间、地点</p>
+            <p>2.1 交货时间：2023年11月15日</p>
+            <p>2.2 交货地点：乙方指定物流集散中心</p>
+            <p>第三条 运输方式及费用</p>
+            <p>3.1 运输方式：冷链专车配送</p>
+            <p>3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还</p>
+            <p>第四条 验收标准</p>
+            <p>4.1 验收标准：GB/T 22345-2021鲜果等级标准</p>
+            <p>4.2 <span class="add-span">抽样比例：每批次随机抽检8%</span></p>
+            <p>第五条 付款方式</p>
+            <p>5.1 合同签订后，乙方支付预付款5600元</p>
+            <p>5.2 余款13150元于交货后15个工作日内结清</p>
+            <p>第六条 违约责任</p>
+            <p>6.1 <span class="mod-span">甲方延迟交货，每日赔付总金额0.8%</span></p>
+            <p>6.2 <span class="mod-span">乙方延迟付款，每日赔付滞纳金0.7%</span></p>
+            <p>第七条 争议解决</p>
+            <p>7.1 争议由签约地（杭州市）仲裁委员会裁决</p>
+            <p>第八条 其他条款</p>
+            <p>8.1 本合同含附件《质检承诺书》</p>
+            <p>8.2 本合同经电子签章后生效，一式三份</p>
+            <p>甲方（电子签章）：_________</p>
+            <p>乙方（电子签章）：_________</p>
+            <p>签约日期：2023年10月18日</p>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var contractA = document.getElementById('contractA');
+            var contractB = document.getElementById('contractB');
+            
+            contractA.addEventListener('scroll', function() {
+                contractB.scrollTop = contractA.scrollTop;
+            });
+            
+            contractB.addEventListener('scroll', function() {
+                contractA.scrollTop = contractB.scrollTop;
+            });
+        });
+    </script>
+</body>
+</html>
