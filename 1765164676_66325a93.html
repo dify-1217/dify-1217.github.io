@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>合同版本对比</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 20px; font-family: monospace; }
+    .container { display: flex; height: 80vh; }
+    .pane { width: 50%; overflow: auto; padding: 10px; border: 1px solid #ddd; }
+    .legend { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+    .legend-item { display: flex; align-items: center; }
+    .color-box { width: 20px; height: 20px; margin-right: 5px; border: 1px solid #555; }
+    .diff-added { background-color: #aaffaa; }
+    .diff-removed { background-color: #ffaaaa; text-decoration: line-through; }
+    .diff-changed-a { background-color: #fff9aa; }
+    .diff-changed-b { background-color: #aae0ff; }
+    pre { margin: 0; white-space: pre-wrap; line-height: 1.5; }
+  </style>
+  <script>
+    function syncScroll(panes) {
+      panes.forEach(pane => {
+        pane.addEventListener('scroll', function() {
+          panes.forEach(other => {
+            if (other !== this) {
+              other.scrollTop = this.scrollTop;
+              other.scrollLeft = this.scrollLeft;
+            }
+          });
+        });
+      });
+    }
+    window.onload = function() {
+      const panes = document.querySelectorAll('.pane');
+      syncScroll(panes);
+    };
+  </script>
+</head>
+<body>
+  <div class="legend">
+    <div class="legend-item">
+      <div class="color-box" style="background-color:#ffaaaa;"></div>
+      <span>删除的内容</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color:#aaffaa;"></div>
+      <span>新增的内容</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color:#fff9aa;"></div>
+      <span>合同A修改前</span>
+    </div>
+    <div class="legend-item">
+      <div class="color-box" style="background-color:#aae0ff;"></div>
+      <span>合同B修改后</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="pane">
+      合同编号：2023-NCP-001
+甲方（卖方）：王五
+乙方（买方）：赵六
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：
+第一条 产品名称、数量、价格
+1.1 产品名称：<span class="diff-removed">新疆苹果</span><span class="diff-changed-a">新疆苹果</span>
+1.2 数量：1500公斤
+1.3 单价：每公斤12.5元，总金额18750元。
+第二条 交货时间、地点
+2.1 交货时间：2023年11月15日
+2.2 交货地点：乙方指定物流集散中心
+第三条 运输方式及费用
+3.1 运输方式：冷链专车配送
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还
+<span class="diff-removed">3.3 保险：货物运输保险由甲方购买，费用包含在运费中</span>
+第四条 验收标准
+4.1 验收标准：GB/T 22345-2021鲜果等级标准
+<span class="diff-removed"></span>
+第五条 付款方式
+5.1 合同签订后，乙方支付预付款5600元
+5.2 余款13150元于交货后15个工作日内结清
+第六条 违约责任
+6.1 甲方延迟交货，每日赔付总金额<span class="diff-changed-a">0.9%</span>
+6.2 乙方延迟付款，每日赔付滞纳金<span class="diff-changed-a">0.8%</span>
+第七条 争议解决
+7.1 争议由签约地（杭州市）仲裁委员会裁决
+第八条 其他条款
+8.1 本合同含附件《质检承诺书》
+8.2 本合同经电子签章后生效，一式三份
+甲方（电子签章）：_________
+乙方（电子签章）：_________
+签约日期：2023年10月18日
+    </div>
+    
+    <div class="pane">
+      合同编号：2023-NCP-001
+甲方（卖方）：王五
+乙方（买方）：赵六
+根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：
+第一条 产品名称、数量、价格
+1.1 产品名称：<span class="diff-added">新疆香梨</span><span class="diff-changed-b">新疆香梨</span>
+1.2 数量：1500公斤
+1.3 单价：每公斤12.5元，总金额18750元。
+第二条 交货时间、地点
+2.1 交货时间：2023年11月15日
+2.2 交货地点：乙方指定物流集散中心
+第三条 运输方式及费用
+3.1 运输方式：冷链专车配送
+3.2 费用承担：甲方预付运费，乙方收货后按实际结算返还
+<span class="diff-added"></span>
+第四条 验收标准
+4.1 验收标准：GB/T 22345-2021鲜果等级标准
+<span class="diff-added">4.2 抽样比例：每批次随机抽检8%</span>
+第五条 付款方式
+5.1 合同签订后，乙方支付预付款5600元
+5.2 余款13150元于交货后15个工作日内结清
+第六条 违约责任
+6.1 甲方延迟交货，每日赔付总金额<span class="diff-changed-b">0.8%</span>
+6.2 乙方延迟付款，每日赔付滞纳金<span class="diff-changed-b">0.7%</span>
+第七条 争议解决
+7.1 争议由签约地（杭州市）仲裁委员会裁决
+第八条 其他条款
+8.1 本合同含附件《质检承诺书》
+8.2 本合同经电子签章后生效，一式三份
+甲方（电子签章）：_________
+乙方（电子签章）：_________
+签约日期：2023年10月18日
+    </div>
+  </div>
+</body>
+</html>
