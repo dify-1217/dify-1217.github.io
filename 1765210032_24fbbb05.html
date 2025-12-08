@@ -1,0 +1,143 @@
+<pre><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合同对比</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .contract {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    border-right: 1px solid #ccc;
+  }
+  .highlight-add {
+    background-color: yellow;
+  }
+  .highlight-remove {
+    text-decoration: line-through;
+    color: red;
+  }
+  .highlight-change {
+    background-color: blue;
+  }
+  .legend {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+  }
+  .legend-text {
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+<h1>合同对比</h1>
+<div class="container">
+  <div class="contract" id="contract1">
+    <!-- Contract Content Here -->
+    <p>合同编号：2023-NCP-001</p>
+    <p>甲方（卖方）：王五</p>
+    <p>乙方（买方）：赵六</p>
+    <p>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：</p>
+    <!-- Add the rest of the contract content here, including the differences highlighted -->
+  </div>
+  <div class="contract" id="contract2">
+    <!-- Contract Content Here -->
+    <p>合同编号：2023-NCP-001</p>
+    <p>甲方（卖方）：王五</p>
+    <p>乙方（买方）：赵六</p>
+    <p>根据《中华人民共和国民法典》及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：</p>
+    <!-- Add the rest of the contract content here, including the differences highlighted -->
+  </div>
+</div>
+<div class="legend">
+  <div class="legend-item">
+    <div style="width: 10px; height: 10px; background-color: yellow;"></div>
+    <div class="legend-text">新增内容</div>
+  </div>
+  <div class="legend-item">
+    <div style="width: 10px; height: 10px; background-color: blue;"></div>
+    <div class="legend-text">修改内容</div>
+  </div>
+  <div class="legend-item">
+    <div style="width: 10px; height: 10px; background-color: red;"></div>
+    <div class="legend-text">删除内容</div>
+  </div>
+</div>
+<script>
+  // JavaScript code to highlight differences and enable synchronized scrolling
+</script>
+</body>
+</html></pre><pre>// JavaScript code to highlight differences and enable synchronized scrolling
+document.addEventListener('DOMContentLoaded', function() {
+  const contract1 = document.getElementById('contract1');
+  const contract2 = document.getElementById('contract2');
+  const highlightAdd = 'highlight-add';
+  const highlightRemove = 'highlight-remove';
+  const highlightChange = 'highlight-change';
+
+  // Function to highlight differences
+  function highlightDifferences() {
+    const lines1 = contract1.innerText.split('
+');
+    const lines2 = contract2.innerText.split('
+');
+    let i = 0;
+
+    // Loop through lines and highlight differences
+    while (i < lines1.length && i < lines2.length) {
+      const line1 = lines1[i];
+      const line2 = lines2[i];
+
+      if (line1 !== line2) {
+        // Check if the line is added, removed, or changed
+        if (!line2.includes(line1)) {
+          // Line is removed
+          line1.classList.add(highlightRemove);
+        } else if (!line1.includes(line2)) {
+          // Line is added
+          line1.classList.add(highlightAdd);
+        } else {
+          // Line is changed
+          line1.classList.add(highlightChange);
+        }
+      }
+
+      i++;
+    }
+  }
+
+  // Enable synchronized scrolling
+  let isScrolling;
+  const scrollAmount = 5; // Adjust as needed
+
+  contract1.addEventListener('scroll', function() {
+    clearTimeout(isScrolling);
+    isScrolling = setTimeout(function() {
+      contract2.scrollTop = contract1.scrollTop;
+    }, scrollAmount);
+  });
+
+  contract2.addEventListener('scroll', function() {
+    clearTimeout(isScrolling);
+    isScrolling = setTimeout(function() {
+      contract1.scrollTop = contract2.scrollTop;
+    }, scrollAmount);
+  });
+
+  // Highlight differences on initial load
+  highlightDifferences();
+});</pre>
