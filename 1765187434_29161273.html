@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同对比</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        .legend-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-left: 5px solid #3498db;
+        }
+        .legend-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+            font-size: 14px;
+        }
+        .color-box {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+            vertical-align: text-bottom;
+            border-radius: 3px;
+        }
+        .addition {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .deletion {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            text-decoration: line-through;
+        }
+        .modification {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+        .comparison-container {
+            display: flex;
+            gap: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .contract-column {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            height: calc(100vh - 200px);
+            border-right: 1px solid #eee;
+        }
+        .contract-column:last-child {
+            border-right: none;
+        }
+        .contract-title {
+            font-size: 20px;
+            color: #2c3e50;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .clause {
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .clause-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+            border-left: 4px solid #3498db;
+            padding-left: 10px;
+        }
+        .clause-content {
+            color: #34495e;
+            font-size: 14.5px;
+            text-align: justify;
+            padding-left: 14px;
+        }
+        .synchronized {
+            scroll-behavior: smooth;
+        }
+        /* 滚动条样式 */
+        .contract-column::-webkit-scrollbar {
+            width: 8px;
+        }
+        .contract-column::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .contract-column::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>合同对比</h1>
+    
+    <div class="legend-container">
+        <div class="legend-title">差异图例说明</div>
+        <div class="legend-item">
+            <span class="color-box addition"></span>新增内容
+        </div>
+        <div class="legend-item">
+            <span class="color-box deletion"></span>删除内容
+        </div>
+        <div class="legend-item">
+            <span class="color-box modification"></span>修改内容
+        </div>
+    </div>
+    
+    <div class="comparison-container">
+        <div id="contractA" class="contract-column synchronized">
+            <div class="contract-title">合同A</div>
+            <!-- 合同A内容将通过JavaScript动态插入 -->
+        </div>
+        <div id="contractB" class="contract-column synchronized">
+            <div class="contract-title">合同B</div>
+            <!-- 合同B内容将通过JavaScript动态插入 -->
+        </div>
+    </div>
+
+    <script>
+        const contractA = `
+合同主体：
+甲方：上海某某科技有限公司
+乙方：北京某某信息技术有限公司
+
+合同标的：
+乙方向甲方提供企业级云存储解决方案，包括软件平台授权、技术支持及维护服务。
+
+价格与支付：
+合同总金额为人民币伍拾万元整（¥500,000.00）。
+付款方式：合同签订后7个工作日内支付50%，项目验收合格后7个工作日内支付剩余50%。
+
+履行期限：
+本合同自双方签字盖章之日起生效，服务期限为一年。
+
+违约责任：
+任何一方违约，应赔偿守约方全部经济损失。
+
+保密条款：
+双方应对本合同内容及履行过程中知悉的对方商业秘密承担保密义务，保密期限为三年。
+
+知识产权：
+乙方保证所提供的服务不侵犯任何第三方的知识产权。
+
+争议解决：
+因履行本合同产生的争议，双方应友好协商解决；协商不成的，提交上海仲裁委员会仲裁。
+`;
+
+        const contractB = `
+合同主体：
+甲方：上海某某科技有限公司
+乙方：北京某某信息技术有限公司
+
+合同标的：
+乙方向甲方提供企业级云存储解决方案及定制化开发服务，包括软件平台授权、技术支持、维护服务及二次开发。
+
+价格与支付：
+合同总金额为人民币陆拾万元整（¥600,000.00）。
+付款方式：合同签订后7个工作日内支付30%，项目中期交付后支付40%，项目最终验收合格后7个工作日内支付剩余30%。
+
+履行期限：
+本合同自双方签字盖章之日起生效，服务期限为两年。
+
+违约责任：
+任何一方违约，应赔偿守约方全部直接经济损失，且违约金不超过合同总金额的20%。
+
+保密条款：
+双方应对本合同内容及履行过程中知悉的对方商业秘密承担保密义务，保密期限为五年。
+
+知识产权：
+乙方保证所提供的服务不侵犯任何第三方的知识产权。定制化开发部分产生的知识产权归甲方所有。
+
+争议解决：
+因履行本合同产生的争议，双方应友好协商解决；协商不成的，提交甲方所在地人民法院诉讼解决。
+`;
+
+        function markDifferences(textA, textB) {
+            const linesA = textA.split('
+');
+            const linesB = textB.split('
+');
+            const maxLines = Math.max(linesA.length, linesB.length);
+            let markedA = '';
+            let markedB = '';
+
+            for (let i = 0; i < maxLines; i++) {
+                const lineA = linesA[i] || '';
+                const lineB = linesB[i] || '';
+
+                if (lineA.trim() === lineB.trim()) {
+                    markedA += lineA + '
+';
+                    markedB += lineB + '
+';
+                } else if (lineA.trim() === '' && lineB.trim() !== '') {
+                    markedA += '
+';
+                    markedB += `<span class="addition">${lineB}</span>
+`;
+                } else if (lineA.trim() !== '' && lineB.trim() === '') {
+                    markedA += `<span class="deletion">${lineA}</span>
+`;
+                    markedB += '
+';
+                } else {
+                    markedA += `<span class="modification">${lineA}</span>
+`;
+                    markedB += `<span class="modification">${lineB}</span>
+`;
+                }
+            }
+            return { markedA, markedB };
+        }
+
+        function parseContract(text, isA) {
+            const lines = text.split('
+');
+            let html = '';
+            let currentTitle = '';
+            let currentContent = '';
+
+            for (const line of lines) {
+                if (line.trim().endsWith('：')) {
+                    if (currentTitle) {
+                        html += `
+                        <div class="clause">
+                            <div class="clause-title">${currentTitle}</div>
+                            <div class="clause-content">${currentContent}</div>
+                        </div>`;
+                    }
+                    currentTitle = line.trim();
+                    currentContent = '';
+                } else if (currentTitle) {
+                    currentContent += (currentContent ? '<br>' : '') + line;
+                }
+            }
+            if (currentTitle) {
+                html += `
+                <div class="clause">
+                    <div class="clause-title">${currentTitle}</div>
+                    <div class="clause-content">${currentContent}</div>
+                </div>`;
+            }
+            return html;
+        }
+
+        function initComparison() {
+            const { markedA, markedB } = markDifferences(contractA, contractB);
+            const contractAHtml = parseContract(markedA, true);
+            const contractBHtml = parseContract(markedB, false);
+            
+            document.getElementById('contractA').innerHTML = '<div class="contract-title">合同A</div>' + contractAHtml;
+            document.getElementById('contractB').innerHTML = '<div class="contract-title">合同B</div>' + contractBHtml;
+        }
+
+        function setupSyncScroll() {
+            const columns = document.querySelectorAll('.synchronized');
+            let isSyncing = false;
+
+            columns.forEach(col => {
+                col.addEventListener('scroll', function() {
+                    if (isSyncing) return;
+                    isSyncing = true;
+                    
+                    const scrollTop = this.scrollTop;
+                    const scrollHeight = this.scrollHeight;
+                    const clientHeight = this.clientHeight;
+                    
+                    columns.forEach(otherCol => {
+                        if (otherCol !== this) {
+                            const ratio = scrollTop / (scrollHeight - clientHeight);
+                            otherCol.scrollTop = ratio * (otherCol.scrollHeight - otherCol.clientHeight);
+                        }
+                    });
+                    
+                    setTimeout(() => isSyncing = false, 10);
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initComparison();
+            setupSyncScroll();
+        });
+    </script>
+</body>
+</html>
