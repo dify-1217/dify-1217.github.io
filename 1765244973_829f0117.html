@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>合同对比</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .title {
+            text-align: center;
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+        .contract-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .contract {
+            flex: 1;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            height: 600px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        .contract h3 {
+            margin-top: 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .contract p {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        .highlight {
+            font-weight: bold;
+        }
+        .delete {
+            color: red;
+        }
+        .add {
+            color: blue;
+        }
+        .modify {
+            color: yellow;
+        }
+        .legend {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 1px solid #ddd;
+            margin-top: 20px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 3px;
+        }
+        .legend-red {
+            background-color: red;
+        }
+        .legend-blue {
+            background-color: blue;
+        }
+        .legend-yellow {
+            background-color: yellow;
+        }
+        .sync-scroll {
+            height: 100%;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scroll-snap-type: y mandatory;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">合同对比</div>
+    
+    <div class="contract-container">
+        <div class="contract" id="contract1">
+            <h3>合同1（原合同）</h3>
+            <div class="sync-scroll">
+                <p class="highlight">角色：你是一位专业的合同审查律师，擅长对比分析合同版本的差异之处。</p>
+                <p class="highlight">合同内容：</p>
+                <p>
+                    <span class="highlight">合同编号：</span>2023-NCP-001<br>
+                    <span class="highlight">甲方（卖方）：</span>王五<br>
+                    <span class="highlight">乙方（买方）：</span>赵六<br>
+                    根据中华人民共和国民法典及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：<br>
+                    第一条 产品名称、数量、价格<br>
+                    1.1 <span class="modify">产品名称：新疆苹果</span><br>
+                    1.2 数量：1500公斤<br>
+                    1.3 单价：每公斤12.5元，总金额18750元。<br>
+                    第二条 交货时间、地点<br>
+                    2.1 交货时间：2023年11月15日<br>
+                    2.2 交货地点：乙方指定物流集散中心<br>
+                    第三条 运输方式及费用<br>
+                    3.1 运输方式：冷链专车配送<br>
+                    3。2 费用承担：甲方预付运费，乙方收货后按实际结算返还<br>
+                    3。3 保险：货物运输保险由甲方购买，费用包含在运费中<br>
+                    第四条 验收标准<br>
+                    4.1 验收标准：GB/T 22345-2021鲜果等级标准<br>
+                    第五条 付款方式<br>
+                    5.1 合同签订后，乙方支付预付款5600元<br>
+                    5.2 余款13150元于交货后15个工作日内结清<br>
+                    第六条 违约责任<br>
+                    6.1 甲方延迟交货，每日赔付总金额0.9%<br>
+                    6.2 乙方延迟付款，每日赔付滞纳金0.8%<br>
+                    第七条 争议解决<br>
+                    7.1 争议由签约地（杭州市）仲裁委员会裁决<br>
+                    第八条 其他条款<br>
+                    8.1 本合同含附件《质检承诺书》<br>
+                    8.2 本合同经电子签章后生效，一式三份<br>
+                    甲方（电子签章）：_________<br>
+                    乙方（电子签章）：_________<br>
+                    签约日期：2023年10月18日
+                </p>
+            </div>
+        </div>
+        <div class="contract" id="contract2">
+            <h3>合同2（修改后合同）</h3>
+            <div class="sync-scroll">
+                <p class="highlight">角色：你是一位专业的合同审查律师，擅长对比分析合同版本的差异之处。</p>
+                <p class="highlight">合同内容：</p>
+                <p>
+                    <span class="highlight">合同编号：</span>2023-NCP-001<br>
+                    <span class="highlight">甲方（卖方）：</span>王五<br>
+                    <span class="highlight">乙方（买方）：</span>赵六<br>
+                    根据中华人民共和国民法典及相关规定，双方在平等自愿基础上，就农副产品买卖达成协议：<br>
+                    第一条 产品名称、数量、价格<br>
+                    1.1 <span class="modify">产品名称：新疆香梨</span><br>
+                    1.2 数量：1500公斤<br>
+                    1.3 单价：每公斤12.5元，总金额18750元。<br>
+                    第二条 交货时间、地点<br>
+                    2.1 交货时间：2023年11月15日<br>
+                    2.2 交货地点：乙方指定物流集散中心<br>
+                    第三条 运输方式及费用<br>
+                    3.1 运输方式：冷链专车配送<br>
+                    3。2 费用承担：甲方预付运费，乙方收货后按实际结算返还<br>
+                    3。3 保险：货物运输保险由甲方购买，费用包含在运费中<br>
+                    第四条 验收标准<br>
+                    4.1 验收标准：GB/T 22345-2021鲜果等级标准<br>
+                    <span class="add">4.2 抽样比例：每批次随机抽检8%</span><br>
+                    第五条 付款方式<br>
+                    5.1 合同签订后，乙方支付预付款5600元<br>
+                    5.2 余款13150元于交货后15个工作日内结清<br>
+                    第六条 违约责任<br>
+                    <span class="modify">6.1 甲方延迟交货，每日赔付总金额0.8%</span><br>
+                    <span class="modify">6.2 乙方延迟付款，每日赔付滞纳金0.7%</span><br>
+                    第七条 争议解决<br>
+                    7.1 争议由签约地（杭州市）仲裁委员会裁决<br>
+                    第八条 其他条款<br>
+                    8.1 本合同含附件《质检承诺书》<br>
+                    8.2 本合同经电子签章后生效，一式三份<br>
+                    甲方（电子签章）：_________<br>
+                    乙方（电子签章）：_________<br>
+                    签约日期：2023年10月18日
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="legend">
+        <h3>图例说明</h3>
+        <div class="legend-item">
+            <div class="legend-color legend-red"></div>
+            <span>删除 (Delete) - 原合同存在，修改后合同未体现的条款/内容</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color legend-blue"></div>
+            <span>新增 (Add) - 修改后合同存在，原合同未体现的条款/内容</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color legend-yellow"></div>
+            <span>修改 (Modify) - 原合同与修改后合同存在内容差异的条款/内容</span>
+        </div>
+    </div>
+    
+    <script>
+        // JavaScript实现同步滚动功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const contract1 = document.getElementById('contract1');
+            const contract2 = document.getElementById('contract2');
+            
+            contract1.addEventListener('scroll', function() {
+                contract2.scrollTop = contract1.scrollTop;
+            });
+            
+            contract2.addEventListener('scroll', function() {
+                contract1.scrollTop = contract2.scrollTop;
+            });
+        });
+    </script>
+</body>
+</html>
