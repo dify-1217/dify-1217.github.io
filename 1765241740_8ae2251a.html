@@ -1,0 +1,47 @@
+<div class="legend-item">
+        <span class="legend-color" style="background-color: #ff6b6b;"></span>
+        <span>新增（增）</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-color" style="background-color: #ffd166;"></span>
+        <span>修改（改）</span>
+    </div>
+    <div class="legend-item">
+        <span class="legend-color" style="background-color: #4d96df;"></span>
+        <span>删除（删）</span>
+    </div>
+</div>
+
+<div class="container">
+    <div class="contract">
+        <div class="contract-title">合同1（原合同）</div>
+        <div class="contract-content" id="contract1"></div>
+    <div class="contract">
+        <div class="contract-title">合同2（修改后合同）</div>
+        <div class="contract-content" id="contract2"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const contract1 = document.getElementById('contract1');
+        const contract2 = document.getElementById('contract2');
+
+        // 合同1内容（已包含差异高亮标记）
+        const contract1Content = `合同编号：2023-NCP-001    // 合同2内容（已包含差异高亮标记）
+        const contract2Content = `合同编号：2023-NCP-001    contract1.innerHTML = contract1Content;
+        contract2.innerHTML = contract2Content;
+
+        // 同步滚动功能
+        const container = document.querySelector('.container');
+        const scroll1 = contract1;
+        const scroll2 = contract2;
+
+        scroll1.addEventListener('scroll', () => {
+            scroll2.scrollTop = scroll1.scrollTop;
+        });
+
+        scroll2.addEventListener('scroll', () => {
+            scroll1.scrollTop = scroll2.scrollTop;
+        });
+    });
+</script>
